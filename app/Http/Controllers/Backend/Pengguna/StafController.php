@@ -8,8 +8,10 @@ use App\Models\UsersDetail;
 use Illuminate\Http\Request;
 use App\Http\Requests\StafRequest;
 use ErrorException;
-use Session;
+// use Session;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+
 
 class StafController extends Controller
 {
@@ -82,6 +84,7 @@ class StafController extends Controller
 
             $user->assignRole($user->role);
             DB::commit();
+            
             Session::flash('success','Staf Berhasil ditambah !');
             return redirect()->route('backend-pengguna-staf.index');
 

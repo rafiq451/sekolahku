@@ -84,25 +84,31 @@ class ProfileController extends Controller
                 $tujuan_upload = 'public/images/profile';
                 $image->storeAs($tujuan_upload,$nama_image);
             }
-
+    
             $profile = User::find($id);
-            $profile->name          = $request->name;
-            $profile->username      = $request->username;
-            $profile->email         = $request->email;
-            $profile->foto_profile  = $nama_image ?? $profile->foto_profile;
-            if ($request->email) {
-                $profile->email_verified_at  = NULL;
+            $profile->name = $request->name;
+            $profile->username = $request->username;
+    
+            // Memeriksa apakah email sudah digunakan
+            if ($request->email && $request->email !== $profile->email) {
+                $emailExists = User::where('email', $request->email)->exists();
+                if ($emailExists) {
+                    return back()->withErrors(['email' => 'Email sudah digunakan.'])->withInput();
+                }
+                $profile->email = $request->email;
+                $profile->email_verified_at = null;
             }
+    
+            $profile->foto_profile = $nama_image ?? $profile->foto_profile;
             $profile->save();
-
-            Session::flash('success','Profile Berhasil diupdate !');
+    
+            Session::flash('success', 'Profil berhasil diperbarui!');
             return back();
-
+    
         } catch (ErrorException $e) {
             throw new ErrorException($e->getMessage());
         }
     }
-
     // Ubah Password
     public function changePassword(ChangePasswordRequest $request, $id)
     {

@@ -4,9 +4,11 @@
     {{$berita->title}}
 @endsection
 
+
 @section('content')
     @section('about')
     <div class="news-details-page-area">
+     
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">

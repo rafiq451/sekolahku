@@ -7,7 +7,8 @@ use App\Models\Footer;
 use Illuminate\Http\Request;
 use App\Http\Requests\FooterRequest;
 use ErrorException;
-use Session;
+// use Session;
+use Illuminate\Support\Facades\Session;
 
 class FooterController extends Controller
 {
@@ -43,6 +44,13 @@ class FooterController extends Controller
         try {
             $image = $request->file('logo');
             $nama_image = time()."_".$image->getClientOriginalName();
+            if ($request->hasFile('logo')) {
+                $file = $request->file('logo');
+                $nama_image = $file->getClientOriginalName();
+                // Lakukan operasi lain dengan nama file
+            } else {
+                // File tidak ada, berikan pesan kesalahan atau ambil tindakan yang sesuai
+            }
             // isi dengan nama folder tempat kemana file diupload
             $tujuan_upload = 'public/images/logo';
             $image->storeAs($tujuan_upload,$nama_image);

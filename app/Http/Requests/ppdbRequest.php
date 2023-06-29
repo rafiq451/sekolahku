@@ -55,5 +55,6 @@ class ppdbRequest extends FormRequest
             'nip.required'          => 'NIP tidak boleh kosong.',
             'nip.numeric'           => 'NIP yang dimasukan tidak valid.'
         ];
+      
     }
 }

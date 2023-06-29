@@ -4,6 +4,7 @@ namespace Modules\Perpustakaan\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use PSpell\Config;
 
 class PerpustakaanServiceProvider extends ServiceProvider
 {
